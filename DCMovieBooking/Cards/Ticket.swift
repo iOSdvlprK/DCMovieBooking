@@ -8,8 +8,11 @@
 import SwiftUI
 
 struct Ticket: View {
-    @State private var title = "Thor"
-    @State private var subtitle = "Love and Thunder"
+    @State var title = "Thor"
+    @State var subtitle = "Love and Thunder"
+    @State var top: String = "thor-top"
+    @State var bottom: String = "thor-bottom"
+    @Binding var height: CGFloat
     
     var gradient = [Color.cyan2, Color.cyan2.opacity(0), Color.cyan2.opacity(0)]
     
@@ -25,12 +28,12 @@ struct Ticket: View {
             .frame(width: 250, height: 325, alignment: .top)
             .foregroundStyle(.white)
             .background {
-                Image(.thorTop)
+                Image(top)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
             }
             .mask {
-                Image(.thorTop)
+                Image(top)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
             }
@@ -39,6 +42,63 @@ struct Ticket: View {
                     .stroke(LinearGradient(colors: gradient, startPoint: .topLeading, endPoint: .bottomTrailing), style: StrokeStyle(lineWidth: 2))
             }
             .cornerRadius(40, corners: [.topLeft, .topRight])
+            
+            Spacer(minLength: height)
+            
+            VStack(spacing: 10) {
+                Line()
+                    .stroke(style: StrokeStyle(lineWidth: 2, dash: [7]))
+                    .frame(width: 200, height: 1)
+                    .opacity(0.6)
+                
+                HStack(spacing: 20.0) {
+                    HStack(spacing: 4.0) {
+                        Text("Date:")
+                            .fontWeight(.medium)
+                            .foregroundStyle(Color.lightPurple)
+                        Text("April 23")
+                            .foregroundStyle(.black)
+                    }
+                    HStack(spacing: 4.0) {
+                        Text("Time:")
+                            .fontWeight(.medium)
+                            .foregroundStyle(Color.lightPurple)
+                        Text("6 p.m.")
+                            .foregroundStyle(.black)
+                    }
+                }
+                
+                HStack(spacing: 20.0) {
+                    HStack(spacing: 4.0) {
+                        Text("Row")
+                            .fontWeight(.medium)
+                            .foregroundStyle(Color.lightPurple)
+                        Text("2")
+                            .foregroundStyle(.black)
+                    }
+                    HStack(spacing: 4.0) {
+                        Text("Seats")
+                            .fontWeight(.medium)
+                            .foregroundStyle(Color.lightPurple)
+                        Text("9, 10")
+                            .foregroundStyle(.black)
+                    }
+                }
+                
+                Image(.code)
+            }
+            .frame(width: 250, height: 135, alignment: .top)
+            .background(.ultraThinMaterial)
+            .background {
+                Image(bottom)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            }
+            .mask {
+                Image(bottom)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            }
         }
         .frame(height: 460)
         .font(.footnote)
@@ -47,5 +107,5 @@ struct Ticket: View {
 }
 
 #Preview {
-    Ticket()
+    Ticket(height: .constant(0))
 }
