@@ -10,27 +10,33 @@ import SwiftUI
 struct ContentView: View {
     @State private var currentTab: Tab = .home
     
-    init() {
-        UITabBar.appearance().isHidden = true
-    }
-    
     var body: some View {
         VStack(spacing: 0.0) {
             TabView(selection: $currentTab) {
-                Text("Home")
-                    .tag(Tab.home)
+                SwiftUI.Tab(value: Tab.home) {
+                    Text("Home")
+                        .toolbarVisibility(.hidden, for: .tabBar)
+                }
                 
-                Text("Location")
-                    .tag(Tab.location)
+                SwiftUI.Tab(value: Tab.location) {
+                    Text("Location")
+                        .toolbarVisibility(.hidden, for: .tabBar)
+                }
                 
-                TicketView()
-                    .tag(Tab.ticket)
+                SwiftUI.Tab(value: Tab.ticket) {
+                    TicketView()
+                        .toolbarVisibility(.hidden, for: .tabBar)
+                }
                 
-                Text("Category")
-                    .tag(Tab.category)
+                SwiftUI.Tab(value: Tab.category) {
+                    Text("Category")
+                        .toolbarVisibility(.hidden, for: .tabBar)
+                }
                 
-                Text("Profile")
-                    .tag(Tab.profile)
+                SwiftUI.Tab(value: Tab.profile) {
+                    Text("Profile")
+                        .toolbarVisibility(.hidden, for: .tabBar)
+                }
             }
             
             CustomTabBar(currentTab: $currentTab)
