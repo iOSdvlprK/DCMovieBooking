@@ -14,7 +14,7 @@ struct ContentView: View {
         VStack(spacing: 0.0) {
             TabView(selection: $currentTab) {
                 SwiftUI.Tab(value: Tab.home) {
-                    Text("Home")
+                    HomeView()
                         .toolbarVisibility(.hidden, for: .tabBar)
                 }
                 
@@ -41,6 +41,7 @@ struct ContentView: View {
             
             CustomTabBar(currentTab: $currentTab)
         }
+        .ignoresSafeArea(.keyboard)
     }
 }
 
