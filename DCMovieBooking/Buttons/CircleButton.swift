@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct CircleButton: View {
-    @State var action: () -> Void
-    @State var image: String = "arrow.left"
+    var action: () -> Void
+    var image: String = "arrow.left"
     
     var gradient: [Color] = [Color("cyan"),Color("cyan").opacity(0.1), Color("cyan")]
     
