@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CustomTabBar: View {
-    @Binding var currentTab: Tab
+    @Binding var currentTab: TabSpot
     
     var backgroundColors = [Color.purple2, Color.lightBlue, Color.pink2]
     var gradientCircle = [Color.cyan2, Color.cyan2.opacity(0.1), Color.cyan2]
@@ -18,7 +18,7 @@ struct CustomTabBar: View {
             let width = geometry.size.width
             
             HStack(spacing: 0.0) {
-                ForEach(Tab.allCases, id: \.rawValue) { tab in
+                ForEach(TabSpot.allCases, id: \.rawValue) { tab in
                     Button {
                         withAnimation(.easeInOut) {
                             currentTab = tab
@@ -61,7 +61,7 @@ struct CustomTabBar: View {
         let index = CGFloat(getIndex())
         if index == 0 { return 0 }
         
-        let buttonWidth = width / CGFloat(Tab.allCases.count)
+        let buttonWidth = width / CGFloat(TabSpot.allCases.count)
         
         return index * buttonWidth
     }

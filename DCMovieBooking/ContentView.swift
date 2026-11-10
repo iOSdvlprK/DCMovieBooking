@@ -7,34 +7,40 @@
 
 import SwiftUI
 
+enum BookingRoute: Hashable {
+    case booking
+    case seats
+}
+
 struct ContentView: View {
-    @State private var currentTab: Tab = .home
+    @State private var path: [BookingRoute] = []
+    @State private var currentTab: TabSpot = .home
     
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $path) {
             VStack(spacing: 0.0) {
                 TabView(selection: $currentTab) {
-                    SwiftUI.Tab(value: Tab.home) {
+                    Tab(value: TabSpot.home) {
                         HomeView()
                             .toolbarVisibility(.hidden, for: .tabBar)
                     }
                     
-                    SwiftUI.Tab(value: Tab.location) {
+                    Tab(value: TabSpot.location) {
                         Text("Location")
                             .toolbarVisibility(.hidden, for: .tabBar)
                     }
                     
-                    SwiftUI.Tab(value: Tab.ticket) {
+                    Tab(value: TabSpot.ticket) {
                         TicketView()
                             .toolbarVisibility(.hidden, for: .tabBar)
                     }
                     
-                    SwiftUI.Tab(value: Tab.category) {
+                    Tab(value: TabSpot.category) {
                         Text("Category")
                             .toolbarVisibility(.hidden, for: .tabBar)
                     }
                     
-                    SwiftUI.Tab(value: Tab.profile) {
+                    Tab(value: TabSpot.profile) {
                         Text("Profile")
                             .toolbarVisibility(.hidden, for: .tabBar)
                     }
@@ -43,6 +49,16 @@ struct ContentView: View {
                 CustomTabBar(currentTab: $currentTab)
             }
             .ignoresSafeArea(.keyboard)
+            .navigationDestination(for: BookingRoute.self) { route in
+                switch route {
+                case .booking:
+                    BookingView()
+                case .seats:
+                    SeatsView(onBookingComplete: {
+                        path.removeAll()
+                    })
+                }
+            }
         }
     }
 }

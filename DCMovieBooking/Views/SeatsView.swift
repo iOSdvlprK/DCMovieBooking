@@ -8,10 +8,16 @@
 import SwiftUI
 
 struct SeatsView: View {
+    let onBookingComplete: () -> Void
+
     @Environment(\.dismiss) var dismiss
     
     @State private var animate = false
     @State private var showButton = false
+
+    init(onBookingComplete: @escaping () -> Void) {
+        self.onBookingComplete = onBookingComplete
+    }
     
     var body: some View {
         VStack(spacing: 0.0) {
@@ -120,7 +126,7 @@ struct SeatsView: View {
                     Spacer()
                     
                     RoundButton(action: {
-                        NavigationUtil.popToRootView()
+                        onBookingComplete()
                     })
                 }
                 .frame(maxHeight: .infinity)
@@ -141,5 +147,7 @@ struct SeatsView: View {
 }
 
 #Preview {
-    SeatsView()
+    NavigationStack {
+        SeatsView(onBookingComplete: {})
+    }
 }
